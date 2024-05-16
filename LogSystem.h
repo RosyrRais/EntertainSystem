@@ -16,9 +16,16 @@ void LogSystem(std::string code, int *run) {
 	if(code == "check") {
 		std::cout << std::endl;
 		log.check();
+		if(log.empty()) std::cout << "Its empty." << std::endl;
 		std::cout << std::endl;
 	} else if(code == "add") {
 		std::string d,s,r,da;
+		if(device.empty()) {
+			std::cout << "Error: There is no device in database." << std::endl;
+			return;
+		} else if(staff.empty()) {
+			std::cout << "Error: There is no Staff in database." << std::endl;
+		}
 		device.print();
 		while(1) {
 			v.out("input the device id: ");
