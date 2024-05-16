@@ -59,8 +59,27 @@ public:
 		}
 		return true;
 	}
-	bool change(int i) {
-		i++; 
+	bool getLogData(std::string id, std::string *deviceName, std::string *staffName, std::string *revenue, std::string *date) {
+		std::ifstream file(Database);
+		std::string line;
+		while(file >> line) {
+			int start = 0, end = line.find(' ');
+			if(id == line.substr(start, end)) {
+				start = end+1; end = line.find(' ', start);
+				*deviceName = line.substr(start, end);
+				start = end+1; end = line.find(' ', start);
+				*staffName = line.substr(start, end);
+				start = end+1; end = line.find(' ', start);
+				*revenue = line.substr(start, end);
+				start = end+1; end = line.find(' ', start);
+				*date = line.substr(start, end);
+				return true;
+			}
+		}
+		return false;
+	}
+	bool change(std::string id, std::string deviceName, std::string staffName, std::string revenue, std::string date) {
+		
 		return false;
 	}
 };
