@@ -23,8 +23,10 @@ void LogSystem(std::string code, int *run) {
 		if(device.empty()) {
 			std::cout << "Error: There is no device in database." << std::endl;
 			return;
-		} else if(staff.empty()) {
+		}
+		if(staff.empty()) {
 			std::cout << "Error: There is no Staff in database." << std::endl;
+			return;
 		}
 		device.print();
 		while(1) {
