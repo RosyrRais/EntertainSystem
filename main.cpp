@@ -1,13 +1,11 @@
 #include "Device.cpp"
 #include "Staff.cpp"
 #include "Log.cpp"
-#include "RootSystem.cpp"
+#include "RootSystem.h"
 
 #include <iostream>
 #include <map>
 using namespace std; 
-
-bool vanishOut = false;
 
 map<int, string> Status = {
 	{0, "@root>>"},
@@ -16,15 +14,12 @@ map<int, string> Status = {
 	{3, "@log>>"},
 };
 
-void vout(string s) {
-	if(!vanishOut) cout << s;
-}
-
 int main() {
 	
 	Device device;
 	Staff staff;
 	Log log;
+	VanishOut v;
 	
 	int run = 0;
 	string code;
@@ -33,13 +28,13 @@ int main() {
 		cout << Status[run];
 		cin >> code;
 		if(run == 0) {
-			if(!rootSystem(code, &run, &vanishOut)) break;
+			if(!rootSystem(code, &run)) break;
 		} else if(run == 1) { //Device
 			if(code == "add") {
 				string deviceName, deviceId;
-				vout("Device id: ");
+				v.out("Device id: ");
 				cin >> deviceId;
-				vout("Device name: ");
+				v.out("Device name: ");
 				cin >> deviceName;
 				if(!device.add(deviceId, deviceName)) {
 					cout << "Error: device already exist or database error." << endl;	
@@ -51,7 +46,7 @@ int main() {
 					continue;
 				}
 				string deviceName;
-				vout("input delete device id: ");
+				v.out("input delete device id: ");
 				cin >> deviceName;
 				if(!device.del(deviceName))
 					cout << "Error: device not exist or database error." << endl;
@@ -77,7 +72,7 @@ int main() {
 				if(staff.empty()) cout << "Its empty." << endl;
 				cout << endl;
 			} else if(code == "add") {
-				vout("input name of the staff: ");
+				v.out("input name of the staff: ");
 				string name;
 				cin >> name;
 				if(staff.add(name))
@@ -87,7 +82,7 @@ int main() {
 				cout << endl;
 			} else if(code == "delete") {
 				if(staff.empty()) cout << "Its empty." << endl; 
-				vout("input id of the staff who to be delete: ");
+				v.out("input id of the staff who to be delete: ");
 				int id;
 				cin >> id;
 				if(staff.del(id))
@@ -108,10 +103,10 @@ int main() {
 				log.check();
 				cout << endl;
 			} else if(code == "add") {
-				string d,s,v,da;
+				string d,s,r,da;
 				device.print();
 				while(1) {
-					vout("input the device id: ");
+					v.out("input the device id: ");
 					cin >> d;
 					d = device.idToName(d);
 					if(d != "None") {
@@ -122,7 +117,7 @@ int main() {
 				}
 				staff.print();
 				while(1) {
-					vout("input the staff id: ");
+					v.out("input the staff id: ");
 					int ss;
 					cin >> ss;
 					s = staff.idToName(ss);
@@ -132,15 +127,15 @@ int main() {
 					}
 					cout << "Invalid id it is." << endl << endl;
 				}
-				vout("input the revanue: ");
-				cin >> v;
-				vout("input the date: ");
+				v.out("input the revanue: ");
+				cin >> r;
+				v.out("input the date: ");
 				cin >> da;
-				log.add(d, s, v, da);
+				log.add(d, s, r, da);
 				cout << endl;
 			} else if(code == "delete") {
 				int id;
-				vout("input id of the log you delete: ");
+				v.out("input id of the log you delete: ");
 				cin >> id;
 				if(log.del(id)) cout << "Success: delete success." << endl;
 				else cout << "Error: log not exist or database error." << endl;

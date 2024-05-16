@@ -1,17 +1,18 @@
-#ifndef VOUT
-#define VOUT
+#ifndef VANISHOUT
+#define VANISHOUT
 
 #include <iostream>
 
 class VanishOut {
 	public:
 		static bool vanish;
-		void vout(std::string s) {
-			if(!vanish) std::cout << s;
+		void out(std::string s) {
+			if(!vanish){
+				std::cout << s;
+			}
 		}
 };
 
-VanishOut v;
 bool VanishOut::vanish = false;
 
 #endif
