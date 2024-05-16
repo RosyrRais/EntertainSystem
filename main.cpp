@@ -2,10 +2,11 @@
 #include "Staff.cpp"
 #include "Log.cpp"
 #include "RootSystem.h"
+#include "DeviceSystem.h"
 
 #include <iostream>
 #include <map>
-using namespace std; 
+using namespace std;
 
 map<int, string> Status = {
 	{0, "@root>>"},
@@ -29,42 +30,8 @@ int main() {
 		cin >> code;
 		if(run == 0) {
 			if(!rootSystem(code, &run)) break;
-		} else if(run == 1) { //Device
-			if(code == "add") {
-				string deviceName, deviceId;
-				v.out("Device id: ");
-				cin >> deviceId;
-				v.out("Device name: ");
-				cin >> deviceName;
-				if(!device.add(deviceId, deviceName)) {
-					cout << "Error: device already exist or database error." << endl;	
-				}
-				cout << endl;
-			} else if(code == "delete") {
-				if(device.empty()) {
-					cout << "Database empty." << endl << endl;
-					continue;
-				}
-				string deviceName;
-				v.out("input delete device id: ");
-				cin >> deviceName;
-				if(!device.del(deviceName))
-					cout << "Error: device not exist or database error." << endl;
-				else
-					cout << "Success: " << deviceName << " had been deleted." << endl;
-				cout << endl;
-			} else if(code == "check") {
-				cout << endl;
-				device.print();
-				if(device.empty()) cout << "Its empty." << endl;
-				cout << endl;
-			} else if(code == "quit") {
-				run = 0;
-				cout << endl;
-			} else {
-				cout << "Invalid code." << endl 
-				<< "(input check/add/delete to manage, or input quit to quit)" << endl << endl;
-			}
+		} else if(run == 1) {
+			DeviceSystem(code, &run);
 		} else if(run == 2) { //Staff
 			if(code == "check") {
 				cout << endl;
