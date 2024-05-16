@@ -6,10 +6,9 @@
 
 #include <iostream>
 
-Device device;
-VanishOut v;
-
 void DeviceSystem(std::string code, int *run) {
+	Device device;
+	VanishOut v;
 	if(code == "add") {
 		std::string deviceName, deviceId;
 		v.out("Device id: ");

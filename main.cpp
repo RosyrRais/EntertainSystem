@@ -3,6 +3,8 @@
 #include "Log.cpp"
 #include "RootSystem.h"
 #include "DeviceSystem.h"
+#include "StaffSystem.h"
+#include "LogSystem.h"
 
 #include <iostream>
 #include <map>
@@ -17,11 +19,6 @@ map<int, string> Status = {
 
 int main() {
 	
-	Device device;
-	Staff staff;
-	Log log;
-	VanishOut v;
-	
 	int run = 0;
 	string code;
 	
@@ -32,90 +29,12 @@ int main() {
 			if(!rootSystem(code, &run)) break;
 		} else if(run == 1) {
 			DeviceSystem(code, &run);
-		} else if(run == 2) { //Staff
-			if(code == "check") {
-				cout << endl;
-				staff.print();
-				if(staff.empty()) cout << "Its empty." << endl;
-				cout << endl;
-			} else if(code == "add") {
-				v.out("input name of the staff: ");
-				string name;
-				cin >> name;
-				if(staff.add(name))
-					cout << "Success: " << name << " had been added in staff." << endl; 
-				else 
-					cout << "Error: " << name << " already exist or database error." << endl;
-				cout << endl;
-			} else if(code == "delete") {
-				if(staff.empty()) cout << "Its empty." << endl; 
-				v.out("input id of the staff who to be delete: ");
-				int id;
-				cin >> id;
-				if(staff.del(id))
-					cout << "Success: Staff remove success." << endl;
-				else
-					cout << "Error: Invalid id or database error." << endl;
-				cout << endl;
-			} else if(code == "quit") {
-				run = 0;
-				cout << endl;
-			} else {
-				cout << "Invalid code." << endl 
-				<< "(input check/add/delete to manage, or input quit to quit)" << endl << endl;
-			}
-		} else if(run == 3) { //Log 
-			if(code == "check") {
-				cout << endl;
-				log.check();
-				cout << endl;
-			} else if(code == "add") {
-				string d,s,r,da;
-				device.print();
-				while(1) {
-					v.out("input the device id: ");
-					cin >> d;
-					d = device.idToName(d);
-					if(d != "None") {
-						cout << endl;
-						break;
-					}
-					cout << "Invalid id it is." << endl << endl;
-				}
-				staff.print();
-				while(1) {
-					v.out("input the staff id: ");
-					int ss;
-					cin >> ss;
-					s = staff.idToName(ss);
-					if(s != "None") {
-						cout << endl;
-						break;
-					}
-					cout << "Invalid id it is." << endl << endl;
-				}
-				v.out("input the revanue: ");
-				cin >> r;
-				v.out("input the date: ");
-				cin >> da;
-				log.add(d, s, r, da);
-				cout << endl;
-			} else if(code == "delete") {
-				int id;
-				v.out("input id of the log you delete: ");
-				cin >> id;
-				if(log.del(id)) cout << "Success: delete success." << endl;
-				else cout << "Error: log not exist or database error." << endl;
-				cout << endl;
-			} else if(code == "quit") {
-				run = 0;
-				cout << endl;
-			} else {
-				cout << "Invalid code." << endl 
-				<< "(input check/add/delete to manage, or input quit to quit)" << endl << endl;
-			}
+		} else if(run == 2) {
+			StaffSystem(code, &run);
+		} else if(run == 3) {
+			LogSystem(code, &run);
 		} else {
-			cout << "Invalid code." << endl 
+			cout << "Invalid code." << endl
 			<< "(input device/staff/log to manage, or input quit to quit)" << endl << endl;
 		}
 	}
