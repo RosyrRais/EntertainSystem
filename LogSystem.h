@@ -96,10 +96,9 @@ void LogSystem(std::string code, int *run) {
 			}
 		}
 		while(1){
-			int i;
-			std::cout << "input staff id(if no change, fill *): "; std::cin >> i;
+			std::cout << "input staff id(if no change, fill *): "; std::cin >> ans;
 			if(ans == "*") break;
-			std::string s = staff.idToName(i);
+			std::string s = staff.idToName(std::stoi(ans));
 			if(s == "None") {
 				std::cout << "Error: Invalid id\n\n";
 			} else {
@@ -120,6 +119,7 @@ void LogSystem(std::string code, int *run) {
 		std::cout << "Invalid code." << std::endl 
 		<< "(input check/add/delete to manage, or input quit to quit)" << std::endl << std::endl;
 	}
+	return;
 }
 
 #endif

@@ -31,14 +31,24 @@ public:
 			std::cout << "id\tdevice\tstaff\trevenue\tdate" << std::endl;
 			int id = 0;
 			while(std::getline(file, line)) {
-				std::cout << ++id << "\t" << line << std::endl;
+				std::cout << ++id;
+				std::string word = "";
+				for(unsigned int i=0; i<line.length(); i++) {
+					if(line[i] == '|') {
+						std::cout << "\t" << word;
+						word = "";
+					} else {
+						word = word + line[i];
+					}
+				}
+				std::cout << std::endl;
 			}
 		}
 	}
 	bool add(std::string d, std::string s, std::string r, std::string da) {
 		std::ofstream ofile(Database, std::ios::app);
 		if(!ofile.is_open()) return false;
-		ofile << d << "\t" << s << "\t" << r << "\t" << da << std::endl;
+		ofile << d << "|" << s << "|" << r << "|" << da << "|" << std::endl;
 		return true;
 	}
 	bool del(int i) {
@@ -66,14 +76,16 @@ public:
 		int i = 0;
 		while(file >> line) {
 			if(++i == id) { // there is a bug 全部读成第一个了 
-				int start = 0, end = line.find("\t");
-				*deviceName = line.substr(start, end);
-				start = end+1; end = line.find("\t", start);
-				*staffName = line.substr(start, end);
-				start = end+1; end = line.find("\t", start);
-				*revenue = line.substr(start, end);
-				start = end+1; end = line.find("\t", start);
-				*date = line.substr(start, end);
+				std::string word;
+				int i = 0;
+				while(line[i] != '|') word = word + line[i++];
+				*deviceName = word; word = ""; i++;
+				while(line[i] != '|') word = word + line[i++];
+				*staffName = word; word = ""; i++;
+				while(line[i] != '|') word = word + line[i++];
+				*revenue = word; word = ""; i++;
+				while(line[i] != '|') word = word + line[i++];
+				*date = word; word = ""; i++;
 				return true;
 			}
 		}
@@ -86,7 +98,7 @@ public:
 		int i = 0;
 		while(std::getline(ifile, line)){
 			if(++i == id) {
-				line = deviceName + "\t" + staffName + "\t" + revenue + "\t" + date;
+				line = deviceName + "|" + staffName + "|" + revenue + "|" + date + "|";
 			}
 			chgQueue.push(line);
 		}
