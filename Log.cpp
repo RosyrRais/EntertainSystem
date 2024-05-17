@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <queue>
+#include <string>
 
 class Log{
 	const std::string Database = "LogData.txt";
@@ -59,28 +60,42 @@ public:
 		}
 		return true;
 	}
-	bool getLogData(std::string id, std::string *deviceName, std::string *staffName, std::string *revenue, std::string *date) {
+	bool getLogData(int id, std::string *deviceName, std::string *staffName, std::string *revenue, std::string *date) {
 		std::ifstream file(Database);
 		std::string line;
+		int i = 0;
 		while(file >> line) {
-			int start = 0, end = line.find(' ');
-			if(id == line.substr(start, end)) {
-				start = end+1; end = line.find(' ', start);
+			if(++i == id) { // there is a bug 全部读成第一个了 
+				int start = 0, end = line.find("\t");
 				*deviceName = line.substr(start, end);
-				start = end+1; end = line.find(' ', start);
+				start = end+1; end = line.find("\t", start);
 				*staffName = line.substr(start, end);
-				start = end+1; end = line.find(' ', start);
+				start = end+1; end = line.find("\t", start);
 				*revenue = line.substr(start, end);
-				start = end+1; end = line.find(' ', start);
+				start = end+1; end = line.find("\t", start);
 				*date = line.substr(start, end);
 				return true;
 			}
 		}
 		return false;
 	}
-	bool change(std::string id, std::string deviceName, std::string staffName, std::string revenue, std::string date) {
-		
-		return false;
+	void change(int id, std::string deviceName, std::string staffName, std::string revenue, std::string date) {
+		std::ifstream ifile(Database);
+		std::string line;
+		std::queue<std::string> chgQueue;
+		int i = 0;
+		while(std::getline(ifile, line)){
+			if(++i == id) {
+				line = deviceName + "\t" + staffName + "\t" + revenue + "\t" + date;
+			}
+			chgQueue.push(line);
+		}
+		ifile.close();
+		std::ofstream ofile(Database);
+		while(!chgQueue.empty()) {
+			ofile << chgQueue.front() << std::endl;
+			chgQueue.pop();
+		}
 	}
 };
 

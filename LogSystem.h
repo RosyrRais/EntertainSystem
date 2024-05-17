@@ -73,7 +73,8 @@ void LogSystem(std::string code, int *run) {
 			std::cout << "Error: There is no log in database." << std::endl;
 			return;
 		}
-		std::string deviceName, staffName, revenue, date, id;
+		int id;
+		std::string deviceName, staffName, revenue, date;
 		v.out("input id of the log you change: ");
 		std:: cin >> id;
 		if(!log.getLogData(id, &deviceName, &staffName, &revenue, &date)){
