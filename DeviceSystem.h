@@ -53,9 +53,14 @@ void DeviceSystem(std::string code, int *run) {
 	} else if(code == "quit") {
 		*run = 0;
 		std::cout << std::endl;
+	} else if(code == "help") {
+		std::cout << "\ninput check/add/delete to manage device.\n"
+		<< "input stream, you can know the total foot traffic for each device.\n"
+		<< "input rank, you can check the rank of each device.\n"
+		<< "and input quit to quit.\n\n";
 	} else {
 		std::cout << "Invalid code." << std::endl 
-		<< "(input check/add/delete to manage, or input quit to quit)" << std::endl << std::endl;
+		<< "(input help for help, or input quit to quit)" << std::endl << std::endl;
 	}
 }
 

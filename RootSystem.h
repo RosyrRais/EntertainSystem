@@ -19,8 +19,7 @@ bool rootSystem(std::string code, int *run) {
 		*run = 3;
 		std::cout << std::endl;
 	} else if(code == "help") {
-		std::cout << "helps" << std::endl;
-		std::cout << std::endl;
+		std::cout << "\ninput device/staff/log into their system. \n input clearMode to open mode, it can helps you skip some output.\n\n";
 	} else if(code == "clearMode") {
 		VanishOut::vanish = !(VanishOut::vanish);
 		if(VanishOut::vanish) std::cout << "Clear mode on." << std::endl << std::endl;

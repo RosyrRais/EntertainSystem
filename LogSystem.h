@@ -125,12 +125,16 @@ void LogSystem(std::string code, int *run) {
 		if(ans != "*") date = ans;
 		log.change(id, deviceName, staffName, revenue, date);
 		std::cout << "Success: log had been change.\n\n"; 
+	} else if(code == "help") {
+		std::cout << "\ninput check/add/delete/change to manage log.\n"
+		<< "input info, You can filter log based on date and device.\n"
+		<< "and input quit to quit.\n\n";
 	} else if(code == "quit") {
 		*run = 0;
 		std::cout << std::endl;
 	} else {
 		std::cout << "Invalid code." << std::endl 
-		<< "(input check/add/delete to manage, or input quit to quit)" << std::endl << std::endl;
+		<< "(input help for help, or input quit to quit)" << std::endl << std::endl;
 	}
 	return;
 }

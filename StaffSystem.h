@@ -33,12 +33,15 @@ void StaffSystem(std::string code, int *run) {
 		else
 			std::cout << "Error: Invalid id or database error." << std::endl;
 		std::cout << std::endl;
+	} else if(code == "help") {
+		std::cout << "\ninput check/add/delete to manage staff.\n"
+		<< "and input quit to quit.\n\n";
 	} else if(code == "quit") {
 		*run = 0;
 		std::cout << std::endl;
 	} else {
 		std::cout << "Invalid code." << std::endl 
-		<< "(input check/add/delete to manage, or input quit to quit)" << std::endl << std::endl;
+		<< "(input help for help, or input quit to quit)" << std::endl << std::endl;
 	}
 }
 
