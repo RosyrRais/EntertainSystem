@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <queue>
+#include <vector>
+#include <algorithm>
 
 #include "log.cpp"
 
@@ -81,6 +83,25 @@ public:
 		Log log;
 		while(file >> id >> name) {
 			std::cout << name << ": " << log.checkDevice(name, true) << std::endl;
+		}
+	}
+	void rank(std::string date) {
+		struct DvcAndCount {
+			int count;
+			std::string dvc;
+			DvcAndCount(std::string d, int c) { dvc = d; count = c; }
+		};
+		std::ifstream file(Database);
+		std::string dvc, id;
+		Log log;
+		std::vector<DvcAndCount> arr;
+		while(file >> id >> dvc) {
+			DvcAndCount *p = new DvcAndCount(dvc, log.info(date, dvc));
+			arr.push_back(*p);
+		}
+		std::sort(arr.begin(), arr.end(), [](DvcAndCount a, DvcAndCount b) { return a.count > b.count; });
+		for(size_t i=0; i<arr.size(); i++) {
+			std::cout << "No" << i+1 << ". " << arr[i].dvc << ": " << arr[i].count << std::endl;
 		}
 	}
 };

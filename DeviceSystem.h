@@ -42,6 +42,14 @@ void DeviceSystem(std::string code, int *run) {
 		device.printStream();
 		if(device.empty()) std::cout << "Its empty." << std::endl;
 		std::cout << std::endl;
+	} else if(code == "rank") {
+		std::string date;
+		v.out("input date:");
+		std::cin >> date;
+		std::cout << std::endl;
+		device.rank(date);
+		if(device.empty()) std::cout << "Its empty." << std::endl;
+		std::cout << std::endl;
 	} else if(code == "quit") {
 		*run = 0;
 		std::cout << std::endl;
