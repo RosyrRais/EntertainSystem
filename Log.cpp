@@ -53,7 +53,7 @@ public:
 		while(getline(file, line)) {
 			std::string d = line.substr(0, line.find('|'));
 			if(d == dvc) {
-				rvn += std::stoi( line.substr(findNthOccurrence(line, '|', 2)+1, findNthOccurrence(line, '|', 3)) );
+				rvn += std::stoi( line.substr(findNthOccurrence(line, '|', 2)+1, findNthOccurrence(line, '|', 3)-findNthOccurrence(line, '|', 2)-1) );
 			}
 		}
 		std::cout << dvc << ": " << rvn << std::endl;
@@ -88,7 +88,7 @@ public:
 		std::string line;
 		int i = 0;
 		while(file >> line) {
-			if(++i == id) { // there is a bug 全部读成第一个了 
+			if(++i == id) {
 				std::string word;
 				int i = 0;
 				while(line[i] != '|') word = word + line[i++];
@@ -121,6 +121,18 @@ public:
 			ofile << chgQueue.front() << std::endl;
 			chgQueue.pop();
 		}
+	}
+	int info(std::string date, std::string dvc = "*") {
+		std::ifstream file(Database);
+		std::string line;
+		int count = 0;
+		while(getline(file, line)) {
+			if(line.substr( findNthOccurrence(line, '|', 3)+1, findNthOccurrence(line, '|', 4)-findNthOccurrence(line, '|', 3)-1) == date && 
+			 ( line.substr(0, findNthOccurrence(line, '|', 1)) == dvc || dvc == "*")) {
+				count += std::stoi(line.substr(findNthOccurrence(line, '|', 2)+1, findNthOccurrence(line, '|', 3)));
+			}
+		}
+		return count;
 	}
 };
 

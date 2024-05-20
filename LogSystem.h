@@ -14,11 +14,11 @@ void LogSystem(std::string code, int *run) {
 	Staff staff;
 	VanishOut v;
 	if(code == "check") {
+		if(log.empty()) { std::cout << "Its empty." << std::endl; return;}
 		std::string obj;
+		v.out("input */date/device to check: ");
 		std::cin >> obj;
 		std::cout << std::endl;
-		if(log.empty()) { std::cout << "Its empty." << std::endl; return;}
-		v.out("input */date/device to check: ");
 		if(obj == "*") { log.check(); }
 		else if (obj == "date") {
 			//date.printLog();
@@ -27,6 +27,13 @@ void LogSystem(std::string code, int *run) {
 			device.printLog();
 		}
 		std::cout << std::endl;
+	} else if(code == "info") {
+		std::string dvc, date;
+		v.out("input date: ");
+		std::cin >> date;
+		v.out("input dvc: ");
+		std::cin >> dvc;
+		std::cout << "[" << date << "|" << dvc << "]: " << log.info(date, dvc) << std::endl << std::endl;
 	} else if(code == "add") {
 		std::string d,s,r,da;
 		if(device.empty()) {
