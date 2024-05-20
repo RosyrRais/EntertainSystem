@@ -16,13 +16,10 @@ void LogSystem(std::string code, int *run) {
 	if(code == "check") {
 		if(log.empty()) { std::cout << "Its empty." << std::endl; return;}
 		std::string obj;
-		v.out("input */date/device to check: ");
+		v.out("input */device to check: ");
 		std::cin >> obj;
 		std::cout << std::endl;
 		if(obj == "*") { log.check(); }
-		else if (obj == "date") {
-			//date.printLog();
-		}
 		else if (obj == "device") {
 			device.printLog();
 		}

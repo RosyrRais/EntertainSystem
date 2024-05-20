@@ -72,7 +72,15 @@ public:
 		std::string id, name;
 		Log log;
 		while(file >> id >> name) {
-			log.checkDevice(name);
+			std::cout << name << ": " << log.checkDevice(name) << std::endl;
+		}
+	}
+	void printStream() {
+		std::ifstream file(Database);
+		std::string id, name;
+		Log log;
+		while(file >> id >> name) {
+			std::cout << name << ": " << log.checkDevice(name, true) << std::endl;
 		}
 	}
 };

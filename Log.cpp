@@ -46,17 +46,18 @@ public:
 			}
 		}
 	}
-	void checkDevice(std::string dvc) {
-		int rvn = 0;
+	int checkDevice(std::string dvc, bool once = false) {
+		int rvn = 0, cnt = 0;
 		std::ifstream file(Database);
 		std::string line;
 		while(getline(file, line)) {
 			std::string d = line.substr(0, line.find('|'));
 			if(d == dvc) {
 				rvn += std::stoi( line.substr(findNthOccurrence(line, '|', 2)+1, findNthOccurrence(line, '|', 3)-findNthOccurrence(line, '|', 2)-1) );
+				cnt++;
 			}
 		}
-		std::cout << dvc << ": " << rvn << std::endl;
+		return once ? cnt : rvn;
 	}
 	bool add(std::string d, std::string s, std::string r, std::string da) {
 		std::ofstream ofile(Database, std::ios::app);

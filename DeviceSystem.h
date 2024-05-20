@@ -37,6 +37,11 @@ void DeviceSystem(std::string code, int *run) {
 		device.print();
 		if(device.empty()) std::cout << "Its empty." << std::endl;
 		std::cout << std::endl;
+	} else if(code == "stream") {
+		std::cout << std::endl;
+		device.printStream();
+		if(device.empty()) std::cout << "Its empty." << std::endl;
+		std::cout << std::endl;
 	} else if(code == "quit") {
 		*run = 0;
 		std::cout << std::endl;
