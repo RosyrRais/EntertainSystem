@@ -5,6 +5,8 @@
 #include <fstream>
 #include <queue>
 
+#include "log.cpp"
+
 class Device {
 	const std::string Database = "DeviceData.txt";
 public:
@@ -64,6 +66,14 @@ public:
 			if(id == i)
 				return name;
 		return "None";
+	}
+	void printLog() {
+		std::ifstream file(Database);
+		std::string id, name;
+		Log log;
+		while(file >> id >> name) {
+			log.checkDevice(name);
+		}
 	}
 };
 

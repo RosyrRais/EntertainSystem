@@ -5,6 +5,7 @@
 #include <fstream>
 #include <queue>
 #include <string>
+#include "tools.h"
 
 class Log{
 	const std::string Database = "LogData.txt";
@@ -44,6 +45,18 @@ public:
 				std::cout << std::endl;
 			}
 		}
+	}
+	void checkDevice(std::string dvc) {
+		int rvn = 0;
+		std::ifstream file(Database);
+		std::string line;
+		while(getline(file, line)) {
+			std::string d = line.substr(0, line.find('|'));
+			if(d == dvc) {
+				rvn += std::stoi( line.substr(findNthOccurrence(line, '|', 2)+1, findNthOccurrence(line, '|', 3)) );
+			}
+		}
+		std::cout << dvc << ": " << rvn << std::endl;
 	}
 	bool add(std::string d, std::string s, std::string r, std::string da) {
 		std::ofstream ofile(Database, std::ios::app);
